@@ -3,7 +3,7 @@ import * as THREE from "three";
 const canvas = document.querySelector('.webgl')
 
 const scene = new THREE.Scene()
-scene.background = new THREE.Color('grey')
+scene.background = new THREE.Color('lightgreen')
 
 const camera = new THREE.PerspectiveCamera(
 75,
@@ -24,6 +24,11 @@ const sphereMaterial = new THREE.MeshNormalMaterial();
 const testSphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 scene.add(testSphere);
 
+const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+const material = new THREE.MeshNormalMaterial();
+const cube = new THREE.Mesh( geometry, material );
+scene.add( cube );
+
 
 
 const clock = new THREE.Clock()
@@ -36,7 +41,9 @@ console.log(Math.sin(elapsedTime))
 testSphere.position.y=Math.sin(elapsedTime)
 testSphere.position.x=Math.cos(elapsedTime)
 testSphere.position.z=Math.cos(elapsedTime)
-
+cube.position.y=Math.sin(-elapsedTime)
+cube.position.x=Math.sin(-elapsedTime)
+cube.position.z=Math.sin(-elapsedTime)
     renderer.render(scene, camera)
 
     window.requestAnimationFrame(animation)
