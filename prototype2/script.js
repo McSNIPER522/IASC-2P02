@@ -20,7 +20,7 @@ sizes.aspectRatio,
 100
 )
 scene.add(camera)
-camera.position.set(0, 0, 5)
+camera.position.set(-2, 3, 5)
 const renderer = new THREE.WebGLRenderer({
 canvas: canvas,
 antialias:true
@@ -36,13 +36,61 @@ const sphereMaterial = new THREE.MeshNormalMaterial();
 const testSphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 scene.add(testSphere);
 
+const planeGeometry = new THREE.PlaneGeometry(10, 10, 50, 50);
+const planeMaterial = new THREE.MeshBasicMaterial({
+    color: new THREE.Color('white'),
+    side: THREE.DoubleSide,
+    wireframe: true
+});
+const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+plane.rotation.x = Math.PI *0.5
+scene.add(plane);
+
 const ui = new dat.GUI()
+
+const uiObject={
+    speed:1,
+    distance:1 
+}
+
+const sphereFolder= ui.addFolder('Sphere')
+sphereFolder
+    .add(uiObject, 'speed')
+    .min(0.1)
+    .max(10)
+    .step(0.1)
+    sphereFolder
+    .add(uiObject, 'distance')
+    .min(0.1)
+    .max(10)
+    .step(0.1)
+sphereFolder
+    .add(testSphere.position, 'y')
+    .min(-5)
+    .max(5)
+    .step(1)
+sphereFolder
+.add(testSphere.position, 'x')
+ .min(-5)
+    .max(5)
+    .step(1)
+sphereFolder
+.add(testSphere.position, 'z')
+ .min(-5)
+    .max(5)
+    .step(1)
+
+const planeFolder= ui.addFolder('Plane')
+
+planeFolder.add(planeMaterial, 'wireframe')
 
 const clock = new THREE.Clock()
 
 const animation=()=>
 {
     const elapsedTime = clock.getElapsedTime()
+
+    testSphere.position.y = Math.sin(elapsedTime * uiObject.speed) * uiObject.distance
 
     controls.update()
 
