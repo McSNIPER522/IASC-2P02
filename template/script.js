@@ -7,6 +7,18 @@ const sizes = {
     aspectRatio: window.innerWidth / window.innerHeight
 }
 
+window.addEventListener('resize', ()=>
+{
+    sizes.width = window.innerWidth
+    sizes.height = window.innerHeight
+    sizes.aspectRatio = window.innerWidth / window.innerHeight
+
+    camera.aspect = sizes.aspectRatio
+    camera.updateProjectionMatrix()
+
+    renderer.setSize(sizes.width, sizes.height)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+})
 
 const canvas = document.querySelector('.webgl')
 
