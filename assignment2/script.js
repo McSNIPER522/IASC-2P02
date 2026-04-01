@@ -84,22 +84,23 @@ const uiObj = {
 		saveSourceText()
 	},
     term1:{
-term: '',
-    color:'',
+term: 'metro',
+    color:'#9fa14f',
     group: group1,
-    nCubes:100
+    nCubes:25
     },
     term2:{
-        term: '',
-    color:'',
+        term: 'dark',
+    color:'#0f0f0f',
     group: group2,
-    nCubes:100
+    nCubes:25
+    
     },
     term3:{
-        term: '',
-        group: group3,
-    color:'',
-    nCubes:100
+        term: 'station',
+    color:'#28bd32',
+     group: group3,
+    nCubes:25
 },
     
     saveTerms(){
@@ -183,10 +184,7 @@ const findSearchTermInTokenizedText = (params)=>
     }
 }
 
-//tokenizedSourceText("")
-//findSearchTermInTokenizedText("gods", "white")
-//findSearchTermInTokenizedText("devils", "red")
-//findSearchTermInTokenizedText("humans", "black")
+
 
 const clock = new THREE.Clock()
 
@@ -203,6 +201,9 @@ const animation=()=>
         camera.position.y = 5
         camera.lookAt(0,0,0)
     }
+
+    group2.rotation.y = elapsedTime *0.2
+    group3.rotation.y=elapsedTime * -0.2
 
     renderer.render(scene, camera)
 
